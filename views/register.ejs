@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/default.css">
+  <link rel="stylesheet" href="css/authentication.css">
+  <title>register | snake</title>
+</head>
+<body>
+  <!-- errors[general, username, email, password] -->
+  <!-- savedInput[username, email] -->
+<main>
+  <form class="authentication-form" action="" method="post">
+    <h2 class="form-title">Create an account</h2>
+    <div class="general-error"><%= errors['general'] ?? '' %></div>
+    <div class="rows-container">
+      <div class="row">
+        <label for="username">username</label>
+        <input type="text" id="username" name="username" data-error="<%= errors['username'] ? '1' : '0' %>" value="<%= savedInput['username'] ?? '' %>">
+        <div class="field-error"><%= errors['username'] ?? '' %></div>
+      </div>
+      <div class="row">
+        <label for="email">email</label>
+        <input type="text" id="email" name="email" data-error="<%= errors['email'] ? '1' : '0' %>" value="<%= savedInput['email'] ?? '' %>">
+        <div class="field-error"><%= errors['email'] ?? '' %></div>
+      </div>
+      <div class="row">
+        <label for="password">password</label>
+        <input type="password" id="password" name="password" data-error="<%= errors['password'] ? '1' : '0' %>">
+        <div class="field-error"><%= errors['password'] ?? '' %></div>
+      </div>
+    </div>
+    <button class="submit-button" type="submit">Submit</button>
+    <div>or <a href="/login">login</a></div>
+  </form>
+</main>
+</body>
+</html>

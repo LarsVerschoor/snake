@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/default.css">
+  <link rel="stylesheet" href="css/main.css">
+  <title>gamemodes | snake</title>
+</head>
+<body>
+  <header id="gamemodesHeader">
+    <h2>Select gamemode</h2>
+    <a href="/"><= Back</a>
+  </header>
+  <main>
+    <section id="gamemodes-container">
+
+      <% gamemodes.forEach(gamemode => { %>
+      <div class="gamemode-card">
+        <div class="gamemode-card__header">
+          <h3><%= gamemode.name %></h3>
+          <a href="/like-gamemode?gamemode=<%= gamemode.id %>">
+            <img src="/images/heart-<%= gamemode.liked == 1 ? 'true' : 'false' %>.svg" alt="Click to <%= gamemode.liked == 1 ? 'remove like' : 'like' %>">
+          </a>
+          <a href="/pin-gamemode?gamemode=<%= gamemode.id %>">
+            <img src="/images/pin-<%= gamemode.pinned == 1 ? 'true' : 'false' %>.svg" alt="Click to <%= gamemode.pinned == 1 ? 'remove pin' : 'pin' %>">
+          </a>
+        </div>
+        <div class="gamemode-card__body">
+          <div class="interactions">
+            <div class="likes">
+              <img src="/images/heart-true.svg" alt="Likes">
+              <div><%= gamemode.likes_count %></div>
+            </div>
+            <div class="pins">
+              <img src="/images/pin-true.svg" alt="Pins">
+              <div><%= gamemode.pins_count %></div>
+            </div>
+          </div>
+          <div class="info">
+            <ul>
+              <li>Speed: <%= gamemode.speed %></li>
+              <li>Food: <%= gamemode.food_amount %></li>
+              <li>Obstacles: <%= gamemode.obstacle_amount %></li>
+              <li>Walls: <%= gamemode.walls == 1 ? 'yes' : 'no' %></li>
+            </ul>
+          </div>
+        </div>
+        <a class="gamemode-card__footer" href="/play?gamemode=<%= gamemode.id %>">Select gamemode</a>
+      </div>
+      <% }) %>
+
+    </section>
+  </main>
+</body>
+</html>

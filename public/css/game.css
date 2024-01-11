@@ -1,0 +1,117 @@
+:root {
+  --color-snake-head: rgb(0, 105, 0);
+  --color-snake-body: rgb(0, 190, 0);
+  --color-food: rgb(219, 0, 0);
+  --color-obstacles: rgb(127, 0, 211);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overscroll-behavior: none;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+@media (max-width: 700px) {
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+
+a {
+  display: block;
+  height: 100%;
+}
+button {
+  font-size: 1rem;
+  height: 100%;
+  padding: 0 1rem;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  button {
+    font-size: .9rem;
+    padding: 0 .2rem;
+  }
+}
+
+header {
+  height: 3rem;
+  width: calc(100vmin - 3rem);
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+main {
+  border: 2px solid #000;
+  height: calc(100vmin - 3rem);
+  width: calc(100vmin - 3rem);
+  margin-inline: auto;
+  display: grid;
+  grid-template: 1fr / 1fr;
+}
+
+.gamegrid,
+.current-score {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.gamegrid {
+  display: grid;
+  grid-template: repeat(21, 1fr) / repeat(21, 1fr);
+}
+
+.gamegrid > .grid-element {
+  display: grid;
+}
+
+.gamegrid > .grid-element:nth-child(odd) {
+  background-color: rgb(235, 235, 235);
+}
+
+.gamegrid > .grid-element > div {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.gamegrid > .grid-element > .snake {
+  background-color: var(--color-snake-body);
+  margin: .3vmin;
+}
+
+.gamegrid > .grid-element > .snake.head {
+  background-color: var(--color-snake-head);
+  margin: .3vmin;
+  z-index: 1;
+}
+
+.gamegrid > .grid-element > .obstacle {
+  background-color: var(--color-obstacles);
+  margin: .3vmin;
+}
+
+.gamegrid > .grid-element > .food {
+  background-color: var(--color-food);
+  margin: .3vmin;
+}
+
+.score {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/game.css">
+  <title>Snake</title>
+  <script>
+    // SERVER-SIDE RENDERING
+
+    const gamemodeInfo = {
+      id: <%= gamemode.id %>,
+      name: '<%= gamemode.name %>',
+      speed: <%= gamemode.speed %>,
+      food_amount: <%= gamemode.food_amount %>,
+      obstacle_amount: <%= gamemode.obstacle_amount %>,
+      walls: <%= gamemode.walls %>
+    }
+
+    const colorPalette = {
+      snakeHead: '<%= settings.color_snake_head %>',
+      snakeBody: '<%= settings.color_snake_body %>',
+      food: '<%= settings.color_food %>',
+      obstacles: '<%= settings.color_obstacles %>'
+    }
+
+    // Applying the provided colors to the css by adding to the :root variables
+    document.documentElement.style.setProperty('--color-snake-head', colorPalette.snakeHead);
+    document.documentElement.style.setProperty('--color-snake-body', colorPalette.snakeBody);
+    document.documentElement.style.setProperty('--color-food', colorPalette.food);
+    document.documentElement.style.setProperty('--color-obstacles', colorPalette.obstacles);
+
+  </script>
+  <script src="javascript/game.js" type="module" defer></script>
+</head>
+<body>
+
+
+<header>
+  <a href="/select-gamemode"><button>Back</button></a>
+  <div class="score">Best: <%= gamemode.highscore !== null ? gamemode.highscore : '0' %></div>
+  <h2><%= gamemode.name %></h2>
+  <div class="score" id="currentScore"></div>
+  <button data-action="togglePause">Pause</button>
+</header>
+<main>
+  <div class="gamegrid" id="gameGrid"></div>
+</main>
+</body>
+</html>

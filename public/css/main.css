@@ -1,0 +1,209 @@
+/* -- INDEX start -- */
+
+header,
+section {
+  padding-inline: var(--padding-inline);
+}
+
+header {
+  padding-block: .8rem;
+  background-color: var(--color-accent);
+}
+
+header#indexHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+header a {
+  color: var(--color-anchor-secondary);
+}
+
+header h2 {
+  color: var(--color-text-secondary);
+}
+
+section#menu {
+  display: flex;
+  flex-direction: column;
+  padding-block: 4rem;
+  justify-content: center;
+  align-items: center;
+}
+
+nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+}
+
+nav a {
+  display: block;
+  text-align: center;
+  background-color: var(--color-accent);
+  color: var(--color-anchor-secondary);
+  text-decoration: none;
+  padding: .5rem 1rem;
+  border-radius: var(--border-radius);
+}
+
+nav a:hover {
+  background-color: var(--color-text-primary);
+}
+
+section#scores {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem 0;
+}
+
+.score-table-container {
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: .3rem 1rem .3rem .4rem;
+  text-align: start;
+}
+
+th {
+  background-color: var(--color-accent);
+  color: var(--color-text-secondary);
+  font-weight: normal;
+  border: 1px solid var(--color-text-secondary);
+}
+
+table, td {
+  border: 1px solid var(--color-accent);
+}
+
+@media (max-width: 1060px) {
+  section#scores {
+    grid-template-columns: 1fr;
+  }
+
+  th, td {
+    padding: .3rem .6rem .3rem .4rem;
+    text-align: start;
+  }
+}
+
+@media (max-width: 450px) {
+  table {
+    font-size: .9rem;
+  }
+
+  th, td {
+    padding: .1rem .2rem .1rem .1rem;
+    text-align: start;
+  }
+}
+
+@media (max-width: 360px) {
+  table {
+    font-size: .8rem;
+  }
+
+  th, td {
+    padding: .1rem .2rem .1rem .1rem;
+    text-align: start;
+  }
+}
+
+@media (max-width: 310px) {
+  table {
+    font-size: .7rem;
+  }
+
+  th, td {
+    padding: .1rem .2rem .1rem .1rem;
+    text-align: start;
+  }
+}
+
+/* -- INDEX end -- */
+
+/* -- SELECT-GAMEMODE start -- */
+
+section#gamemodes-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-block: 1rem;
+}
+
+.gamemode-card {
+  background-color: var(--color-background-secondary);
+  border: 2px solid var(--color-accent);
+  min-width: min(100%, 15rem);
+  border-radius: var(--border-radius);
+}
+
+.gamemode-card__header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: .5rem 1rem;
+  gap: 1rem;
+  background-color: var(--color-accent);
+}
+
+.gamemode-card__header h3 {
+  margin-right: auto;
+  color: var(--color-text-secondary);
+}
+
+.gamemode-card__header img {
+  height: 1.3rem;
+  cursor: pointer;
+}
+
+.gamemode-card__body {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.gamemode-card__body .interactions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.gamemode-card__body .interactions > div {
+  width: 100%;
+  padding-block: .5rem;
+  display: flex;
+  justify-content: space-evenly;
+  background-color: var(--color-accent);
+  color: var(--color-text-secondary);
+  border-radius: var(--border-radius);
+}
+
+.gamemode-card__footer {
+  margin: 1rem;
+  padding: .7rem 1.3rem;
+  display: block;
+  background-color: var(--color-accent);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+}
+
+.gamemode-card__footer:hover {
+  background-color: var(--color-text-primary);
+}

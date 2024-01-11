@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/default.css">
+  <link rel="stylesheet" href="css/main.css">
+  <title>home | snake</title>
+</head>
+<body>
+  <header id="indexHeader">
+    <h1>Snake</h1>
+    <a href="/logout">Logout</a>
+  </header>
+  <main>
+    <section id="menu">
+      <h2>Menu</h2>
+      <nav>
+        <a href="/select-gamemode">Play gamemodes</a>
+        <a href="/my-statistics">My statistics</a>
+        <a href="/players">Players</a>
+        <a href="/settings">Settings</a>
+      </nav>
+    </section>
+    <section id="scores">
+      <div class="score-table-container">
+        <h2>Today's highscores</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>gamemode</th>
+              <th>player</th>
+              <th>score</th>
+              <th>date</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <td colspan="4">Past 24h's highscores ordered by score</td>
+            </tr>
+          </tfoot>
+          <tbody>
+            <% dailyHighscores.forEach(highscore => { %>
+            <tr>
+              <td><%= highscore.gamemode %></td>
+              <td><%= highscore.username %></td>
+              <td><%= highscore.score %></td>
+              <td><%= highscore.created_at %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <div class="score-table-container">
+        <h2>All-time highscores</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>gamemode</th>
+              <th>player</th>
+              <th>score</th>
+              <th>date</th>
+            </tr>
+          </thead>
+          <tfoot>
+            <tr>
+              <td colspan="4">All-time highscores ordered by score</td>
+            </tr>
+          </tfoot>
+          <tbody>
+            <% allTimeHighscores.forEach(highscore => { %>
+            <tr>
+              <td><%= highscore.gamemode %></td>
+              <td><%= highscore.username %></td>
+              <td><%= highscore.score %></td>
+              <td><%= highscore.created_at %></td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <br>
+  </main>
+</body>
+</html>

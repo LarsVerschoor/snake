@@ -1,0 +1,71 @@
+DROP DATABASE snake;
+CREATE DATABASE snake;
+
+USE snake;
+
+CREATE TABLE gamemodes (
+  id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(32) UNIQUE,
+  speed TINYINT UNSIGNED,
+  food_amount TINYINT UNSIGNED,
+  obstacle_amount TINYINT UNSIGNED,
+  walls BOOLEAN,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE users (
+  id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(32) UNIQUE,
+  email VARCHAR(255) UNIQUE,
+  password_hash VARCHAR(255),
+  password_salt VARCHAR(30),
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE scores (
+  id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  user_id BIGINT UNSIGNED,
+  gamemode_id BIGINT UNSIGNED,
+  score SMALLINT UNSIGNED,
+  death_message VARCHAR(255),
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (gamemode_id) REFERENCES gamemodes(id) ON DELETE CASCADE
+);
+
+CREATE TABLE likes (
+  user_id BIGINT UNSIGNED,
+  gamemode_id BIGINT UNSIGNED,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (user_id, gamemode_id),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (gamemode_id) REFERENCES gamemodes(id) ON DELETE CASCADE
+);
+
+CREATE TABLE pins (
+  user_id BIGINT UNSIGNED,
+  gamemode_id BIGINT UNSIGNED,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (user_id, gamemode_id),
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (gamemode_id) REFERENCES gamemodes(id) ON DELETE CASCADE
+);
+
+CREATE TABLE sessions (
+  id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  user_id BIGINT UNSIGNED,
+  authentication_cookie VARCHAR(36) UNIQUE,
+  expiry_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE settings (
+  user_id BIGINT UNSIGNED UNIQUE,
+  public_profile BOOLEAN DEFAULT 0,
+  dark_mode BOOLEAN DEFAULT 0,
+  color_snake_head VARCHAR(32) DEFAULT 'rgb(0, 105, 0)',
+  color_snake_body VARCHAR(32) DEFAULT 'rgb(0, 190, 0)',
+  color_food VARCHAR(32) DEFAULT 'rgb(219, 0, 0)',
+  color_obstacles VARCHAR(32) DEFAULT 'rgb(127, 0, 211)',
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
