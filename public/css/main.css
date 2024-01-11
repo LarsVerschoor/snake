@@ -206,3 +206,30 @@ section#gamemodes-container {
 .gamemode-card__footer:hover {
   background-color: var(--color-text-primary);
 }
+
+/* -- SELECT-GAMEMODE end -- */
+
+/* -- SETTINGS start -- */
+
+section#settings-form-container {
+  padding-top: 2rem;
+}
+
+#settings-form-container form {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+#settings-form-container .setting {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+
+#settings-form-container .setting:nth-child(even) {
+  background-color: var(--color-background-secondary);
+}
+
+/* -- SETTINGS end -- */
