@@ -227,12 +227,12 @@ section#settings-form-container {
   gap: .5rem;
   flex-wrap: wrap;
   padding: .5rem 1rem;
+  background-color: var(--color-accent);
+  color: var(--color-text-secondary);
 }
 
 #settings-form-container .setting:nth-child(even) {
-  background-color: var(--color-accent);
-  color: var(--color-accent-secondary);
-
+  background-color: var(--color-accent-secondary);
 }
 
 /* -- SETTINGS end -- */
