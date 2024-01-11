@@ -98,8 +98,8 @@ router.get('/', checkLoggedIn, authenticate, getSettings, (req, res) => {
   res.render('settings', { settings: req.settings, errors: {} });
 })
 
-router.post('/', checkLoggedIn, authenticate, validateInput, saveSettings, (req, res) => {
-  res.send('<a href="">Return to settings</a><br>Feature still under development')
+router.post('/', checkLoggedIn, authenticate, validateInput, saveSettings, getSettings, (req, res) => {
+  res.render('settings', { settings: req.settings, errors: {} });
 })
 
 module.exports = router;
