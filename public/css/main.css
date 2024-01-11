@@ -243,4 +243,8 @@ section#settings-form-container {
   background-color: var(--color-error-light);
 }
 
+#settings-form-container button {
+  font-size: 1rem;
+}
+
 /* -- SETTINGS end -- */
