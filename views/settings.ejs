@@ -11,24 +11,30 @@
   This settings form does not change your settings as it is still under development
   <form action="" method="POST">
     <!-- TODO: add reset functionality button per setting -->
+    <div class="form-general-error"><%= errors['general'] ?? '' %></div>
+
     <div class="setting">
       <label for="colorSnakeHead">Color of the head of the snake</label>
       <input type="color" id="colorSnakeHead" name="color_snake_head" value="<%= settings.color_snake_head ?? '' %>">
+      <div class="form-error"><%= errors['color_snake_head'] ?? '' %></div>
     </div>
     
     <div class="setting">
       <label for="colorSnakeBody">Color of the body of the snake</label>
       <input type="color" id="colorSnakeBody" name="color_snake_body" value="<%= settings.color_snake_body ?? '' %>">
+      <div class="form-error"><%= errors['color_snake_body'] ?? '' %></div>
     </div>
     
     <div class="setting">
       <label for="colorFood">Color of the food</label>
       <input type="color" id="colorFood" name="color_food" value="<%= settings.color_food ?? '' %>">
+      <div class="form-error"><%= errors['color_food'] ?? '' %></div>
     </div>
     
     <div class="setting">
       <label for="colorObstacles">Color of the obstacles</label>
       <input type="color" id="colorObstacles" name="color_obstacles" value="<%= settings.color_obstacles ?? '' %>">
+      <div class="form-error"><%= errors['color_obstacles'] ?? '' %></div>
     </div>
 
     <button type="submit">Save settings</button>
