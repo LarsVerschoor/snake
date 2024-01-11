@@ -229,7 +229,8 @@ section#settings-form-container {
 }
 
 #settings-form-container .setting:nth-child(even) {
-  background-color: var(--color-background-secondary);
+  background-color: var(--color-accent);
+  
 }
 
 /* -- SETTINGS end -- */
