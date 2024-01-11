@@ -245,6 +245,14 @@ section#settings-form-container {
 
 #settings-form-container button {
   font-size: 1rem;
+  border: none;
+  background-color: var(--color-accent);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}
+
+#settings-form-container button:hover {
+  background-color: var(--color-text-primary);
 }
 
 #settings-form-container .actions {
