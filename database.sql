@@ -63,9 +63,9 @@ CREATE TABLE settings (
   user_id BIGINT UNSIGNED UNIQUE,
   public_profile BOOLEAN DEFAULT 0,
   dark_mode BOOLEAN DEFAULT 0,
-  color_snake_head VARCHAR(32) DEFAULT 'rgb(0, 105, 0)',
-  color_snake_body VARCHAR(32) DEFAULT 'rgb(0, 190, 0)',
-  color_food VARCHAR(32) DEFAULT 'rgb(219, 0, 0)',
-  color_obstacles VARCHAR(32) DEFAULT 'rgb(127, 0, 211)',
+  color_snake_head VARCHAR(7) DEFAULT '#006900',
+  color_snake_body VARCHAR(7) DEFAULT '#00be00',
+  color_food VARCHAR(7) DEFAULT '#db0000',
+  color_obstacles VARCHAR(7) DEFAULT '#7f00d3',
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
