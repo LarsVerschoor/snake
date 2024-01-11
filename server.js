@@ -3,7 +3,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const sessionsCleanup = require('./includes/sessions_cleanup');
-require('dotenv').config();
 
 const app = express();
 const server = http.createServer(app);
