@@ -247,4 +247,12 @@ section#settings-form-container {
   font-size: 1rem;
 }
 
+#settings-form-container .actions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: .5rem;
+}
+
 /* -- SETTINGS end -- */
