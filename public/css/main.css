@@ -226,11 +226,13 @@ section#settings-form-container {
   align-items: center;
   gap: .5rem;
   flex-wrap: wrap;
+  padding: .5rem 1rem;
 }
 
 #settings-form-container .setting:nth-child(even) {
   background-color: var(--color-accent);
-  
+  color: var(--color-text-secondary);
+
 }
 
 /* -- SETTINGS end -- */
