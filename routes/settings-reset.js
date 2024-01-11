@@ -5,7 +5,7 @@ const pool = require('../includes/database');
 
 const router = express.Router();
 
-const resetSettings = async (req, res, rext) => {
+const resetSettings = async (req, res, next) => {
   const connection = await pool.getConnection();
   try {
     const query = `
