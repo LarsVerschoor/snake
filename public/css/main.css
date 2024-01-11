@@ -249,6 +249,7 @@ section#settings-form-container {
   background-color: var(--color-accent);
   color: var(--color-text-secondary);
   cursor: pointer;
+  padding: .5rem 1rem;
 }
 
 #settings-form-container button:hover {
