@@ -32,6 +32,7 @@ const pinGamemodeRoute = require('./routes/pin-gamemode');
 const myStatisticsRoute = require('./routes/my-statistics');
 const playersRoute = require('./routes/players');
 const settingsRoute = require('./routes/settings');
+const resetSettingsRoute = require('./routes/settings-reset');
 const playRoute = require('./routes/play');
 const deathRoute = require('./routes/death');
 
@@ -45,6 +46,7 @@ app.use('/pin-gamemode', pinGamemodeRoute);
 app.use('/my-statistics', myStatisticsRoute);
 app.use('/players', playersRoute);
 app.use('/settings', settingsRoute);
+app.use('/settings-reset', resetSettingsRoute);
 app.use('/play', playRoute);
 app.use('/death', deathRoute);
 
