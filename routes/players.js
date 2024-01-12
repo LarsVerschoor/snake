@@ -23,15 +23,15 @@ const getPlayers = async (req, res, next) => {
       SELECT users.username, users.created_at, COUNT(scores) AS games_played
       FROM users
       LEFT JOIN scores ON scores.user_id = users.id
-      WHERE LOWER(username) LIKE LOWER(%@search_term%)
+      WHERE LOWER(username) LIKE LOWER(CONCAT('%', @search_term, '%'))
       GROUP BY users.username, users.created_at
       ORDER BY CASE
         WHEN username LIKE @search_term THEN 01
         WHEN LOWER(username) LIKE LOWER(@search_term) THEN 2
-        WHEN username LIKE @search_term% THEN 3
-        WHEN LOWER(username) LIKE LOWER(@search_term%) THEN 4
-        WHEN username LIKE %@search_term% THEN 5
-        WHEN LOWER(username) LIKE LOWER(%@search_term%) THEN 6
+        WHEN username LIKE CONCAT(@search_term, '%') THEN 3
+        WHEN LOWER(username) LIKE LOWER(CONCAT(@search_term, '%')) THEN 4
+        WHEN username LIKE CONCAT('%', @search_term, '%') THEN 5
+        WHEN LOWER(username) LIKE LOWER(CONCAT('%', @search_term, '%')) THEN 6
       END;`;
       const [ searchResults ] = await connection.execute(query, [ req.query.q ]);
 
