@@ -19,7 +19,7 @@ const getPlayers = async (req, res, next) => {
 
       // Get search results from database
       const query = `
-      SET @search_term = ?
+      SET @search_term = ?;
       SELECT users.username, users.created_at, COUNT(scores) AS games_played
       FROM users
       LEFT JOIN scores ON scores.user_id = users.id
