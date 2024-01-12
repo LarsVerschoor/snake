@@ -212,7 +212,7 @@ section#gamemodes-container {
 /* -- SETTINGS start -- */
 
 section#settings-form-container {
-  padding-top: 2rem;
+  padding-block: 1rem;
 }
 
 #settings-form-container form {
@@ -235,8 +235,8 @@ section#settings-form-container {
   background-color: var(--color-accent-secondary);
 }
 
-.form-error:not(:empty),
-.form-general-error:not(:empty) {
+#settings-form-container .form-error:not(:empty),
+#settings-form-container .form-general-error:not(:empty) {
   border: 2px solid var(--color-error-dark);
   padding: .2rem .5rem;
   color: var(--color-error-dark);
@@ -267,3 +267,14 @@ section#settings-form-container {
 }
 
 /* -- SETTINGS end -- */
+
+/* -- PLAYERS start -- */
+
+section.search {
+  padding-block: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* -- PLAYERS end -- */
