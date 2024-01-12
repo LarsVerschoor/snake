@@ -17,9 +17,11 @@ const getPlayers = async (req, res, next) => {
         return;
       }
 
+      // Set variable in mysql database
+      await connection.execute('SET @search_term = ?', [ req.query.q ]);
+
       // Get search results from database
       const query = `
-      SET @search_term = ?;
       SELECT users.username, users.created_at, COUNT(scores) AS games_played
       FROM users
       LEFT JOIN scores ON scores.user_id = users.id
@@ -33,7 +35,7 @@ const getPlayers = async (req, res, next) => {
         WHEN username LIKE CONCAT('%', @search_term, '%') THEN 5
         WHEN LOWER(username) LIKE LOWER(CONCAT('%', @search_term, '%')) THEN 6
       END;`;
-      const [ searchResults ] = await connection.execute(query, [ req.query.q ]);
+      const [ searchResults ] = await connection.execute(query);
 
       req.searchResults = searchResults;
       next();
