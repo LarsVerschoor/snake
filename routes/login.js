@@ -48,8 +48,8 @@ const checkMatch = async (req, res, next) => {
 
     // compare passwords
     const hashedDatabasePassword = rows[0]['password_hash'];
-    const match = await bcrypt.compare(password, hashedDatabasePassword);
-    if (!match) {
+    
+    if (!await bcrypt.compare(password, hashedDatabasePassword)) {
       errors ['general'] = 'Username and password combination is incorrect. Please try again.';
       res.render('login', {errors, savedInput: { username }});
       return;
@@ -58,7 +58,7 @@ const checkMatch = async (req, res, next) => {
   }
   catch (error) {
     console.error(error);
-    errors['general'] = 'An error occured while checking your credentials. Please try again.';
+    errors['general'] = 'An error occured while checking your credentials. Please try again later.';
     res.render('login', {errors, savedInput: { username }});
   }
   finally {

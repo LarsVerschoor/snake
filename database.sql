@@ -69,3 +69,21 @@ CREATE TABLE settings (
   color_obstacles VARCHAR(7) DEFAULT '#7f00d3',
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+CREATE TABLE friendship_requests (
+  senderId BIGINT UNSIGNED,
+  recipientId BIGINT UNSIGNED,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (senderId, recipientId),
+  FOREIGN KEY (senderId) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (recipientId) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE friendships (
+  senderId BIGINT UNSIGNED,
+  recipientId BIGINT UNSIGNED,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (senderId, recipientId),
+  FOREIGN KEY (senderId) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (recipientId) REFERENCES users(id) ON DELETE CASCADE
+);
