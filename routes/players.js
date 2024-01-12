@@ -24,7 +24,7 @@ const getPlayers = async (req, res, next) => {
       LEFT JOIN scores ON scores.user_id = users.id
       WHERE LOWER(username) LIKE CONCAT('%', LOWER(?), '%') 
       GROUP BY users.username, date_created
-      ORDER BY games_played ASC`;
+      ORDER BY games_played DESC`;
       const [ searchResults ] = await connection.execute(query, [ req.query.q ]);
 
       req.searchResults = searchResults;
