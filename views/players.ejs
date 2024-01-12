@@ -18,6 +18,7 @@
         <label for="searchPlayersInput">Search by username</label>
         <input type="text" id="searchPlayersInput" name="q">
         <button type="submit" id="searchPlayersButton">Search</button>
+        <div class="form-general-error"><%= errors['general'] ?? '' %></div>
       </form>
       <table class="search-results">
         <thead>
@@ -33,6 +34,17 @@
           </tr>
         </tfoot>
         <tbody>
+          <% results.forEach(result => { %>
+
+          <tr>
+            <td>
+              <a href="/player?username=<%= result.username %>"><%= result.username %></a>
+            </td>
+            <td><%= result.created_at %></td>
+            <td><%= result.games_played %></td>
+          </tr>
+
+          <% }) %>
         </tbody>
       </table>
     </section>
