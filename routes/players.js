@@ -19,7 +19,7 @@ const getPlayers = async (req, res, next) => {
 
       // Get search results from database
       const query = `
-      SELECT users.username, DATE_FORMAT(users.created_at, '%Y-%m-%d) AS date_created, COUNT(scores.user_id) AS games_played
+      SELECT users.username, DATE_FORMAT(users.created_at, '%Y-%m-%d') AS date_created, COUNT(scores.user_id) AS games_played
       FROM users
       LEFT JOIN scores ON scores.user_id = users.id
       WHERE username = ?
