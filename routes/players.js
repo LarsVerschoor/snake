@@ -22,7 +22,7 @@ const getPlayers = async (req, res, next) => {
       SELECT users.username, DATE_FORMAT(users.created_at, '%Y-%m-%d') AS date_created, COUNT(scores.user_id) AS games_played
       FROM users
       LEFT JOIN scores ON scores.user_id = users.id
-      WHERE username = ?
+      WHERE LOWER(username) LIKE CONCAT('%', LOWER(?), '%') 
       GROUP BY users.username, date_created`;
       const [ searchResults ] = await connection.execute(query, [ req.query.q ]);
 
