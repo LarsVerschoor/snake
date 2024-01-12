@@ -5,10 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>players | snake</title>
   <link rel="stylesheet" href="css/default.css">
+  <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-  <a href="/"><= Back</a>
-  <br>
-  test
+  <header id="playersHeader">
+    <h2>Players</h2>
+    <a href="/"><= Back</a>
+  </header>
+  <main>
+    <section class="search">
+      <form action="" method="get">
+        <label for="searchPlayersInput">Search by username</label>
+        <input type="text" id="searchPlayersInput" name="q">
+        <button type="submit" id="searchPlayersButton">Search</button>
+      </form>
+      <table class="search-results">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Created</th>
+            <th>Games played</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td colspan="3">Search results</td>
+          </tr>
+        </tfoot>
+        <tbody>
+        </tbody>
+      </table>
+    </section>
+  </main>
 </body>
 </html>
