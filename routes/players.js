@@ -22,7 +22,7 @@ const getPlayers = async (req, res, next) => {
 
       // Get search results from database
       const query = `
-      SELECT users.username, users.created_at, COUNT(scores) AS games_played
+      SELECT users.username, users.created_at, COUNT(scores.user_id) AS games_played
       FROM users
       LEFT JOIN scores ON scores.user_id = users.id
       WHERE LOWER(username) LIKE LOWER(CONCAT('%', @search_term, '%'))
