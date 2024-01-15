@@ -10,8 +10,8 @@
     <h2>Game over!</h2>
     <div><%= deathData.death_message %></div>
     <div>score: <%= deathData.score %></div>
-    <a href="/select-gamemode">Close</a>
-    <a href="/play?gamemode=<%= deathData.gamemode_id %>">Play again</a>
+    <a href="/gamemodes">Close</a>
+    <a href="/gamemodes/<%= deathData.name %>/play">Play again</a>
   </main>
 </body>
 </html>

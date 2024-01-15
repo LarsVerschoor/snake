@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/default.css">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="/css/default.css">
+  <link rel="stylesheet" href="/css/main.css">
   <title>gamemodes | snake</title>
 </head>
 <body>
   <header id="gamemodesHeader">
-    <h2>Select gamemode</h2>
+    <h2>Gamemodes</h2>
     <a href="/"><= Back</a>
   </header>
   <main>
@@ -46,7 +46,7 @@
             </ul>
           </div>
         </div>
-        <a class="gamemode-card__footer" href="/play?gamemode=<%= gamemode.id %>">Select gamemode</a>
+        <a class="gamemode-card__footer" href="/gamemodes/<%= gamemode.name %>/">Select gamemode</a>
       </div>
       <% }) %>
 

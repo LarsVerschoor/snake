@@ -10,7 +10,6 @@ const getGamemodes = async (req, res, next) => {
   try {
     const query = `
     SELECT
-      gamemodes.id,
       gamemodes.name,
       gamemodes.speed,
       gamemodes.food_amount,
@@ -53,8 +52,6 @@ const getGamemodes = async (req, res, next) => {
     connection.release();
   }
 }
-
-
 
 router.get('/', checkLoggedIn, authenticate, getGamemodes, (req, res) => {
   const gamemodes = req.gamemodes;

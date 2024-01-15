@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/default.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <title>Document</title>
+</head>
+<body>
+  <header>
+    <h2><%= gamemode.name %> gamemode</h2>
+    <a href="/gamemodes"><= Back</a>
+  </header>
+  <main>
+    <section class="gamemode-info">
+      <a class="play-button" href="/gamemodes/<%= gamemode.name %>/play">Play gamemode</a>
+
+      <h3>Highscores of <%= gamemode.name %> gamemode</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>score</th>
+            <th>player</th>
+            <th>date</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td colspan="4">Ordered by score, created at ASC</td>
+          </tr>
+        </tfoot>
+        <tbody>
+          <% highscores.forEach((highscore, index) => { %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= highscore.score %></td>
+              <td><%= highscore.username %></td>
+              <td><%= highscore.created_at %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+      <h3><%= gamemode.name %> gamemode info</h3>
+      <ul>
+        <li><strong>Personal best: <%= gamemode.highscore ?? 'not played' %></strong></li>
+        <li>Speed: <%= gamemode.speed %></li>
+        <li>Food: <%= gamemode.food_amount %></li>
+        <li>Obstacles: <%= gamemode.obstacles_amount %></li>
+        <li>Walls: <%= gamemode.walls == 1 ? 'yes' : 'no' %></li>
+        <li>Created at: <%= gamemode.created_at %></li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamemode Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        section {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h2>Gamemode Name</h2>
+    </header>
+
+    <section>
+        <a href="back.html">Back</a>
+        <h3>Gamemode Details</h3>
+        <ul>
+            <li>Name: Gamemode Name</li>
+            <li>Speed: Gamemode Speed</li>
+            <li>Food Amount: Gamemode Food Amount</li>
+            <li>Obstacle Amount: Gamemode Obstacle Amount</li>
+            <li>Walls: Yes/No</li>
+            <li>Personal Highscore: Highscore Value</li>
+        </ul>
+
+        <h3>Highscores</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Score</th>
+                    <th>Created At</th>
+                    <th>Gamemode</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>User1</td>
+                    <td>1000</td>
+                    <td>2022-01-15 12:34:56</td>
+                    <td>Gamemode Name</td>
+                </tr>
+                <!-- Add more rows for additional highscores -->
+            </tbody>
+        </table>
+
+        <button>Play Gamemode</button>
+    </section>
+
+</body>
+
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/game.css">
+  <link rel="stylesheet" href="/css/game.css">
   <title>Snake</title>
   <script>
     // SERVER-SIDE RENDERING
@@ -31,13 +31,13 @@
     document.documentElement.style.setProperty('--color-obstacles', colorPalette.obstacles);
 
   </script>
-  <script src="javascript/game.js" type="module" defer></script>
+  <script src="/javascript/game.js" type="module" defer></script>
 </head>
 <body>
 
 
 <header>
-  <a href="/select-gamemode"><button>Back</button></a>
+  <a href="/gamemodes"><button>Back</button></a>
   <div class="score">Best: <%= gamemode.highscore !== null ? gamemode.highscore : '0' %></div>
   <h2><%= gamemode.name %></h2>
   <div class="score" id="currentScore"></div>

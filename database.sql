@@ -10,7 +10,7 @@ CREATE TABLE gamemodes (
   food_amount TINYINT UNSIGNED,
   obstacle_amount TINYINT UNSIGNED,
   walls BOOLEAN,
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  created_at DATE DEFAULT (CURRENT_DATE)
 );
 
 CREATE TABLE users (

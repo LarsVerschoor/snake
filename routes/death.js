@@ -8,7 +8,13 @@ const router = express.Router();
 const getLastScore = async (req, res, next) => {
   const connection = await pool.getConnection();
   try {
-    const [rows] = await connection.execute('SELECT * FROM scores WHERE user_id = ? ORDER BY created_at DESC LIMIT 1', [req.userId]);
+    const query = `
+      SELECT * FROM scores
+      INNER JOIN gamemodes ON scores.gamemode_id = gamemodes.id
+      WHERE user_id = ?
+      ORDER BY scores.created_at DESC
+      LIMIT 1`
+    const [rows] = await connection.execute(query, [req.userId]);
     if (rows.length === 0) {
       res.redirect('/');
       return;
