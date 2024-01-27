@@ -202,6 +202,87 @@ const fetchDataOfAllGamemodes = async (req, res, next) => {
   }
 }
 
+const pinGamemode = async (req, res, next) => {
+  try {
+    const connection = await pool.getConnection();
+    try {
+      const gamemodeName = req.params.gamemodeName;
+      const userId = req.userId;
+
+      const checkGamemodeIdQuery = 'SELECT * FROM gamemodes WHERE name = ?';
+      const [ resultGamemodes ] = await connection.execute(checkGamemodeIdQuery, [gamemodeName]);
+      if (resultGamemodes.length !== 1) throw new Error();
+
+      const gamemodeId = resultGamemodes[0].id;
+
+      const checkDuplicateQuery = 'SELECT * FROM pins WHERE user_id = ? AND gamemode_id = ?';
+      const [ duplicates ] = await connection.execute(checkDuplicateQuery, [userId, gamemodeId]);
+      if (duplicates.length !== 0) {
+        const removePinQuery = 'DELETE FROM pins WHERE user_id = ? AND gamemode_id = ?';
+        await connection.execute(removePinQuery, [userId, gamemodeId]);
+        next();
+        return;
+      }
+
+      const insertQuery = 'INSERT INTO pins (user_id, gamemode_id) VALUES (?, ?)';
+      await connection.execute(insertQuery, [userId, gamemodeId]);
+      next();
+    }
+    catch (error) {
+      console.log(error)
+      res.status(500).redirect('/error.html');
+    }
+    finally {
+      connection.release();
+    }
+  }
+  catch (error) {
+    console.log(error);
+    res.status(500).redirect('/error.html');
+  }
+}
+
+const likeGamemode = async (req, res, next) => {
+  try {
+    const connection = await pool.getConnection();
+    try {
+      const gamemodeName = req.params.gamemodeName;
+      const userId = req.userId;
+
+      const checkGamemodeIdQuery = 'SELECT * FROM gamemodes WHERE name = ?';
+      const [ resultGamemodes ] = await connection.execute(checkGamemodeIdQuery, [gamemodeName]);
+      if (resultGamemodes.length !== 1) throw new Error();
+
+      const gamemodeId = resultGamemodes[0].id;
+
+      const checkDuplicateQuery = 'SELECT * FROM likes WHERE user_id = ? AND gamemode_id = ?';
+      const [ duplicates ] = await connection.execute(checkDuplicateQuery, [userId, gamemodeId]);
+      if (duplicates.length !== 0) {
+        const removeLikeQuery = 'DELETE FROM likes WHERE user_id = ? AND gamemode_id = ?';
+        await connection.execute(removeLikeQuery, [userId, gamemodeId]);
+        next();
+        return;
+      }
+
+      const insertQuery = 'INSERT INTO likes (user_id, gamemode_id) VALUES (?, ?)';
+      await connection.execute(insertQuery, [userId, gamemodeId]);
+      next();
+    }
+    catch(error) {
+      console.error(error);
+      res.status(500).redirect('/error.html');
+
+    }
+    finally {
+      connection.release();
+    }
+  }
+  catch (error) {
+    res.status(500).redirect('/error.html');
+    res.redirect('error.html');
+  }
+}
+
 // --- ROUTE HANDLERS ---
 
 router.get('/:gamemodeName/play', checkLoggedIn, authenticate, checkGamemodeExistsByName, fetchLoggedInUserSettings, fetchDataOfGamemode, async (req, res) => {
@@ -223,5 +304,13 @@ router.get('/', checkLoggedIn, authenticate, fetchDataOfAllGamemodes, (req, res)
   const gamemodes = req.gamemodes;
   res.render('select-gamemode', { gamemodes });
 });
+
+router.get('/:gamemodeName/pin', checkLoggedIn, authenticate, pinGamemode, async (req, res) => {
+  res.redirect('/gamemodes');
+})
+
+router.get('/:gamemodeName/like', checkLoggedIn, authenticate, likeGamemode, async (req, res) => {
+  res.redirect('/gamemodes');
+})
 
 module.exports = router;

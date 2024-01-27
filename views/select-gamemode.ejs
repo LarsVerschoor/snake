@@ -19,10 +19,10 @@
       <div class="gamemode-card">
         <div class="gamemode-card__header">
           <h3><%= gamemode.name %></h3>
-          <a href="/like-gamemode?gamemode=<%= gamemode.id %>">
+          <a href="/gamemodes/<%= gamemode.name %>/like">
             <img src="/images/heart-<%= gamemode.liked == 1 ? 'true' : 'false' %>.svg" alt="Click to <%= gamemode.liked == 1 ? 'remove like' : 'like' %>">
           </a>
-          <a href="/pin-gamemode?gamemode=<%= gamemode.id %>">
+          <a href="/gamemodes/<%= gamemode.name %>/pin">
             <img src="/images/pin-<%= gamemode.pinned == 1 ? 'true' : 'false' %>.svg" alt="Click to <%= gamemode.pinned == 1 ? 'remove pin' : 'pin' %>">
           </a>
         </div>
