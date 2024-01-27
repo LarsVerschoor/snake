@@ -103,7 +103,7 @@ const getPlayerHighscores = async (req, res, next) => {
       SELECT gamemodes.name AS gamemode_name, COALESCE(MAX(scores.score), 0) AS highscore
       FROM gamemodes
       LEFT JOIN scores ON gamemodes.id = scores.gamemode_id
-      WHERE scores.user_id = 2
+      WHERE scores.user_id = ?
       GROUP BY gamemodes.id, gamemodes.name
       ORDER BY highscore DESC`;
 
