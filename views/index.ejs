@@ -41,10 +41,11 @@
             </tr>
           </tfoot>
           <tbody>
-            <% dailyHighscores.forEach(highscore => { %>
+            <% dailyHighscores.forEach(highscore => {
+            if (highscore.username === '-') return%>
             <tr>
               <td><%= highscore.gamemode %></td>
-              <td><%= highscore.username %></td>
+              <td><a href="/players/<%= highscore.username %>/profile"><%= highscore.username %></a></td>
               <td><%= highscore.score %></td>
               <td><%= highscore.created_at %></td>
             </tr>
@@ -69,10 +70,11 @@
             </tr>
           </tfoot>
           <tbody>
-            <% allTimeHighscores.forEach(highscore => { %>
+            <% allTimeHighscores.forEach(highscore => {
+            if (highscore.username === '-') return%>
             <tr>
               <td><%= highscore.gamemode %></td>
-              <td><%= highscore.username %></td>
+              <td><a href="/players/<%= highscore.username %>/profile"><%= highscore.username %></a></td>
               <td><%= highscore.score %></td>
               <td><%= highscore.created_at %></td>
             </tr>

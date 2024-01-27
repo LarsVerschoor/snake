@@ -36,7 +36,7 @@
             <tr>
               <td><%= index + 1 %></td>
               <td><%= highscore.score %></td>
-              <td><%= highscore.username %></td>
+              <td><a href="/players/<%= highscore.username %>/profile"><%= highscore.username %></a></td>
               <td><%= highscore.created_at %></td>
             </tr>
           <% }) %>

@@ -20,6 +20,8 @@ const validateInput = (req, res, next) => {
     errors['username'] = 'Please fill in a username';
   } else if (username.length > 32) {
     errors['username'] = `This field allows for a maximum of 32 characters (current length is ${username.length})`;
+  } else if (username === '-') {
+    errors['username'] = 'Your username can not be \"-\"'
   }
 
   if (!email || email === '') {
