@@ -322,3 +322,15 @@ section.search {
 }
 
 /* -- PLAYERS end -- */
+
+/* -- PLAYER PROFILE start */
+
+section.player-profile {
+  padding-block: 1rem;
+}
+
+.player-profile h3 {
+  margin-bottom: 1rem;
+}
+
+/* -- PLAYER PROFILE end */

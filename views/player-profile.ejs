@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>snake | <%= player.username %></title>
+  <link rel="stylesheet" href="/css/default.css">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <!-- gamesPlayed, highscores, player -->
+  <header>
+    <h2>Profile | <%= player.username %></h2>
+    <a href="/"><= Back</a>
+  </header>
+  <main>
+    <section class="player-profile">
+      <h3><%= player.username %>'s highscores</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Gamemode</th>
+            <th>Score</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td colspan="3"><%= player.username %>'s highscores ordered by score</td>
+          </tr>
+        </tfoot>
+        <tbody>
+          <% highscores.forEach(highscore => { %>
+          
+          <tr>
+            <td><%= highscore.gamemode_name %></td>
+            <td><%= highscore.highscore %></td>
+            <td><%= highscore.created_at %></td>
+          </tr>
+          
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

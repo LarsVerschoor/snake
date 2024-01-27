@@ -38,8 +38,130 @@ const getPlayers = async (req, res, next) => {
   }
 }
 
+const getTargetPlayerId = async (req, res, next) => {
+  try {
+    const connection = await pool.getConnection();
+    try {
+      const targetPlayerName = req.params.playerName;
+      const query = 'SELECT id FROM users WHERE username = ?';
+      const [ results ] = await connection.execute(query, [ targetPlayerName ]);
+      if (results.length !== 1) {
+        res.status(404).redirect('/404.html');
+        return;
+      }
+      req.targetPlayerId = results[0].id;
+      next();
+    }
+    catch {
+      res.status(500).redirect('/error.html');
+      console.error(error);
+    }
+    finally {
+      connection.release();
+    }
+  }
+  catch (error) {
+    res.status(500).redirect('/error.html');
+    console.error(error);
+  }
+}
+
+const getPlayerPlayedAmount = async (req, res, next) => {
+  try {
+    const connection = await pool.getConnection();
+    try {
+      const targetPlayerId = req.targetPlayerId;
+      const query = 'SELECT COUNT(*) as games_played FROM scores WHERE user_id = ?';
+      const [ results ] = await connection.execute(query, [ targetPlayerId ]);
+      if (results.length !== 1) {
+        res.status(404).redirect('/404.html');
+        return;
+      }
+      req.playerPlayedAmount = results[0].games_played;
+      next();
+    }
+    catch {
+      res.status(500).redirect('/error.html');
+      console.error(error);
+    }
+    finally {
+      connection.release();
+    }
+  }
+  catch (error) {
+    res.status(500).redirect('/error.html');
+    console.error(error);
+  }
+}
+
+const getPlayerHighscores = async (req, res, next) => {
+  try {
+    const connection = await pool.getConnection();
+    try {
+      const targetPlayerId = req.targetPlayerId;
+      const query = `
+      SELECT gamemodes.name AS gamemode_name, COALESCE(scores.score, 0) AS highscore, scores.created_at
+      FROM gamemodes
+      LEFT JOIN (
+          SELECT gamemode_id, MAX(score) AS score, DATE_FORMAT(scores.created_at, '%Y-%m-%d %H:%i:%s') AS created_at FROM scores
+          WHERE user_id = ? GROUP BY gamemode_id, created_at
+      ) scores ON gamemodes.id = scores.gamemode_id ORDER BY score DESC`;
+      const [ results ] = await connection.execute(query, [targetPlayerId]);
+      req.playerHighscores = results;
+      next();
+    }
+    catch (error) {
+      res.status(500).redirect('/error.html');
+      console.error(error);
+    }
+    finally {
+      connection.release();
+    }
+  }
+  catch (error) {
+    res.status(500).redirect('/error.html');
+    console.error(error);
+  }
+}
+
+const getPlayerData = async (req, res, next) => {
+  try {
+    const connection = await pool.getConnection();
+    try {
+      const targetPlayerId = req.targetPlayerId;
+      const query = 'SELECT * FROM users WHERE id = ?';
+      const [ results ] = await connection.execute(query, [ targetPlayerId ]);
+      if (results.length !== 1) {
+        res.status(404).redirect('/404.html');
+        return;
+      }
+      req.playerData = results[0];
+      next();
+    }
+    catch (error) {
+      res.status(500).redirect('/error.html');
+      console.error(error);
+    }
+    finally {
+      connection.release();
+    }
+  }
+  catch (error) {
+    res.status(500).redirect('/error.html')
+    console.error(error);
+  }
+}
+
 router.get('/', checkLoggedIn, authenticate, getPlayers, (req, res) => {
   res.render('players', { errors: {}, results: req.searchResults });
+})
+
+router.get('/:playerName/profile', checkLoggedIn, authenticate, getTargetPlayerId, getPlayerPlayedAmount, getPlayerHighscores, getPlayerData, (req, res) => {
+  res.render('player-profile', { gamesPlayed: req.playerPlayedAmount, highscores: req.playerHighscores, player: req.playerData });
+})
+
+router.get('/:playerName', (req, res) => {
+  res.redirect('/players/playerName/profile');
 })
 
 module.exports = router;
