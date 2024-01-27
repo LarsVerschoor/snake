@@ -43,10 +43,11 @@ const validateInput = (req, res, next) => {
 const checkDuplicateEntries = async (req, res, next) => {
   const errors = new Object();
   const { username, email } = req.body;
-  const connection = await pool.getConnection();
+  let connection;
 
   try {
     // SELECT duplicate entries
+    connection = await pool.getConnection();
     const [rows] = await connection.execute('SELECT username, email FROM users WHERE username = ? OR email = ?', [username, email]);
     
     // if no duplicates
@@ -73,16 +74,17 @@ const checkDuplicateEntries = async (req, res, next) => {
     console.error(error);
   }
   finally {
-    connection.release();
+    if (connection) connection.release();
   }
 }
 
 const createNewUser = async (req, res, next) => {
   const { username, email, password } = req.body;
   const errors = new Object();
-  const connection = await pool.getConnection();
+  let connection;
 
   try {
+    connection = await pool.getConnection();
     // create salt and hash
     const salt = await bcrypt.genSalt(saltRounds);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -101,7 +103,7 @@ const createNewUser = async (req, res, next) => {
     console.error(error);
   }
   finally {
-    connection.release();
+    if (connection) connection.release();
   }
 }
 

@@ -6,8 +6,9 @@ const pool = require('../includes/database');
 const router = express.Router();
 
 const resetSettings = async (req, res, next) => {
-  const connection = await pool.getConnection();
+  let connection;
   try {
+    connection = await pool.getConnection();
     const query = `
     UPDATE settings SET
       color_snake_head = default,
@@ -17,15 +18,14 @@ const resetSettings = async (req, res, next) => {
     WHERE user_id = ?`;
 
     await connection.execute(query, [ req.userId ]);
-
     next();
   }
   catch(error) {
-    // TODO: redirect to error page
+    res.redirect('/error.html');
     console.error(error);
   }
   finally {
-    connection.release();
+    if (connection) connection.release();
   }
 }
 

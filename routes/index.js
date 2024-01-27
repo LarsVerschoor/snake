@@ -6,8 +6,9 @@ const { checkLoggedIn, authenticate } = require('../includes/authentication');
 const router = express.Router();
 
 const getDailyHighscores = async (req, res, next) => {
-  const connection = await pool.getConnection();
+  let connection;
   try {
+    connection = await pool.getConnection();
     const query = `
       SELECT 
         gamemodes.id AS gamemode_id,
@@ -42,17 +43,18 @@ const getDailyHighscores = async (req, res, next) => {
     next();
   }
   catch (error) {
+    res.redirect('/error.html');
     console.error(error);
-    // redirect to error page
   }
   finally {
-    connection.release();
+    if (connection) connection.release();
   }
 }
 
 const getAllTimeHighscores = async (req, res, next) => {
-  const connection = await pool.getConnection();
+  let connection;
   try {
+    connection = await pool.getConnection();
     const query = `
       SELECT 
         gamemodes.id AS gamemode_id,
@@ -87,11 +89,11 @@ const getAllTimeHighscores = async (req, res, next) => {
     next();
   }
   catch (error) {
+    res.redirect('/error.html');
     console.error(error);
-    // redirect to error page
   }
   finally {
-    connection.release();
+    if (connection) connection.release();
   }
 }
 

@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const sessionsCleanup = require('./includes/sessions_cleanup');
+const path = require('path');
 
 const app = express();
 const server = http.createServer(app);
@@ -51,6 +52,10 @@ app.use('/settings', settingsRoute);
 app.use('/settings-reset', resetSettingsRoute);
 // app.use('/play', playRoute);
 app.use('/death', deathRoute);
+
+app.get('/*', (req, res) => {
+  res.status(404).sendFile(path.join(__dirname, '/public', '404.html'));
+})
 
 sessionsCleanup.initialize();
 

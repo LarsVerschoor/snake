@@ -6,8 +6,9 @@ const { checkLoggedIn, authenticate } = require('../includes/authentication');
 const router = express.Router();
 
 const getLastScore = async (req, res, next) => {
-  const connection = await pool.getConnection();
+  let connection
   try {
+    connection = await pool.getConnection();
     const query = `
       SELECT * FROM scores
       INNER JOIN gamemodes ON scores.gamemode_id = gamemodes.id
@@ -16,7 +17,8 @@ const getLastScore = async (req, res, next) => {
       LIMIT 1`
     const [rows] = await connection.execute(query, [req.userId]);
     if (rows.length === 0) {
-      res.redirect('/');
+      // snake has never died before so death page should not exist
+      res.redirect('/404.html');
       return;
     }
     const lastScoreData = rows[0];
@@ -24,16 +26,20 @@ const getLastScore = async (req, res, next) => {
     next();
   }
   catch (error) {
-    res.redirect('/');
+    res.redirect('/error.html');
     console.error(error);
   }
   finally {
-    connection.release();
+    if (connection) connection.release();
   }
 }
 
 router.get('/', checkLoggedIn, authenticate, getLastScore, (req, res) => {
   res.render('death', {deathData: req.deathData});
+})
+
+router.get('/*', (req, res) => {
+  res.redirect('/404.html');
 })
 
 module.exports = router;

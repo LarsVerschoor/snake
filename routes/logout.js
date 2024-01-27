@@ -6,9 +6,10 @@ const { checkLoggedIn, authenticate } = require('../includes/authentication');
 const router = express.Router();
 
 const logout = async (req, res, next) => {
-  const connection = await pool.getConnection();
+  let connection;
 
   try {
+    connection = await pool.getConnection();
     const userId = req.userId;
 
     await connection.execute('DELETE FROM sessions WHERE user_id = ?', [userId]);
@@ -16,11 +17,11 @@ const logout = async (req, res, next) => {
     next();
   }
   catch (error) {
-    res.redirect('/');
+    res.redirect('/error.html');
     console.error(error);
   }
   finally {
-    connection.release();
+    if (connection) connection.release();
   }
 }
 

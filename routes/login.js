@@ -35,10 +35,11 @@ const validateInput = (req, res, next) => {
 const checkMatch = async (req, res, next) => {
   const { username, password } = req.body;
   const errors = new Object();
-  const connection = await pool.getConnection();
+  let connection;
 
   try {
     // SELECT user from database
+    connection = await pool.getConnection();
     const [rows] = await connection.execute('SELECT username, password_hash FROM users WHERE username = ?', [username]);
     if (rows.length === 0) {
       errors['general'] = 'Username and password combination is incorrect, Please try again.';
@@ -62,16 +63,17 @@ const checkMatch = async (req, res, next) => {
     res.render('login', {errors, savedInput: { username }});
   }
   finally {
-    connection.release();
+    if (connection) connection.release();
   }
 }
 
 const initializeSession = async (req, res, next) => {
   const { username } = req.body;
   const errors = new Object();
-  const connection = await pool.getConnection();
+  let connection;
 
   try {
+    connection = await pool.getConnection();
     const expirationTimeInMilliSeconds = 15 * 60 * 60 * 1000; //15hr
 
     // generate 16-byte cookie
@@ -98,7 +100,7 @@ const initializeSession = async (req, res, next) => {
     res.render('login', {errors, savedInput: { username }});
   }
   finally {
-    connection.release();
+    if (connection) connection.release();
   }
 }
 

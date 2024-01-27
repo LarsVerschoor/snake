@@ -4,8 +4,9 @@ const pool = require('../includes/database')
 const { checkLoggedIn, authenticate } = require('../includes/authentication');
 
 const getSettings = async (req, res, next) => {
-  const connection = await pool.getConnection();
+  let connection;
   try {
+    connection = await pool.getConnection();
     const query = 'SELECT * FROM settings WHERE user_id = ?'
     const [ settings ] = await connection.execute(query, [ req.userId ]);
     if (settings.length !== 1) {
@@ -16,11 +17,11 @@ const getSettings = async (req, res, next) => {
     next();
   }
   catch (error) {
-    // redirect to error page
+    res.redirect('/error.html');
     console.error(error);
   }
   finally {
-    connection.release();
+    if (connection) connection.release();
   }
 }
 
@@ -56,10 +57,11 @@ const validateInput = (req, res, next) => {
 }
 
 const saveSettings = async (req, res, next) => {
-  const connection = await pool.getConnection();
   const errors = new Array();
+  let connection;
 
   try {
+    connection = await pool.getConnection();
     const {
       color_snake_head,
       color_snake_body,
@@ -90,12 +92,16 @@ const saveSettings = async (req, res, next) => {
     res.render('settings', { settings: req.body, errors: errors });
   }
   finally {
-    connection.release();
+    if (connection) connection.release();
   }
 }
 
 router.get('/', checkLoggedIn, authenticate, getSettings, (req, res) => {
   res.render('settings', { settings: req.settings, errors: {} });
+})
+
+router.get('/*', (req, res) => {
+  res.redirect('/404.html')
 })
 
 router.post('/', checkLoggedIn, authenticate, validateInput, saveSettings, getSettings, (req, res) => {

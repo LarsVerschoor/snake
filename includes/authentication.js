@@ -2,9 +2,9 @@ const pool = require('./database');
 
 // redirect if not logged in
 const checkLoggedIn = async (req, res, next) => {
-  const connection = await pool.getConnection();
-
+  let connection;
   try {
+    connection = await pool.getConnection();
     if (!req.cookies['session_authentication']) {
       res.redirect('/login');
       return;
@@ -22,18 +22,18 @@ const checkLoggedIn = async (req, res, next) => {
   }
   catch (error) {
     console.error(error)
-    res.redirect('/login');
+    res.redirect('/error.html');
   }
   finally {
-    connection.release();
+    if (connection) connection.release();
   }
 }
 
 // redirect if logged in
 const checkNotLoggedIn = async (req, res, next) => {
-  const connection = await pool.getConnection();
-
+  let connection;
   try {
+    connection = await pool.getConnection();
     if (!req.cookies['session_authentication']) {
       next();
       return;
@@ -51,18 +51,18 @@ const checkNotLoggedIn = async (req, res, next) => {
   }
   catch (error) {
     console.error(error)
-    res.redirect('/');
+    res.redirect('/error.html');
   }
   finally {
-    connection.release();
+    if (connection) connection.release();
   }
 }
 
 // retrieve user-id from database
 const authenticate = async (req, res, next) => {
-  const connection = await pool.getConnection();
-  
+  let connection;
   try {
+    connection = await pool.getConnection();
     const cookie = req.cookies['session_authentication'];
     const getUserQuery = 'SELECT users.id FROM sessions LEFT JOIN users ON sessions.user_id = users.id WHERE sessions.authentication_cookie = ?';
     const [users] = await connection.execute(getUserQuery, [cookie]);
@@ -71,10 +71,10 @@ const authenticate = async (req, res, next) => {
   }
   catch (error) {
     console.error(error);
-    res.send('An unexpected error occured on the server.');
+    res.redirect('/error.html');
   }
   finally {
-    connection.release();
+    if (connection) connection.release();
   }
 }
 

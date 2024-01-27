@@ -13,7 +13,7 @@
   --color-error-dark: #AD0000;
   --box-shadow: .25rem .15rem .6rem .05rem hsl(0, 0%, 78%);
   --border-radius: .2rem;
-  --padding-inline: max(calc((100svw - 1000px) / 2), 1rem);
+  --padding-inline: max(calc((100svw - 1100px) / 2), 1rem);
 }
 
 * {

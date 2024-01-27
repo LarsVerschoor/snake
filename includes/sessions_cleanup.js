@@ -9,14 +9,15 @@ module.exports.initialize = () => {
   // month *
   // week-day *
   cron.schedule('0 * * * *', async () => {
-    const connection = await pool.getConnection();
+    let connection;
     try {
+      connection = await pool.getConnection();
       await connection.execute('DELETE FROM sessions WHERE expiry_time <= NOW()');
       console.log('cleaned up sessions')
     } catch (error) {
       console.error(error)
     } finally {
-      connection.release();
+      if (connection) connection.release();
     }
   })
 }
