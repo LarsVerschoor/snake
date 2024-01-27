@@ -100,12 +100,13 @@ const getPlayerHighscores = async (req, res, next) => {
     try {
       const targetPlayerId = req.targetPlayerId;
       const query = `
-      SELECT gamemodes.name AS gamemode_name, COALESCE(scores.score, 0) AS highscore, scores.created_at
+      SELECT gamemodes.name AS gamemode_name, COALESCE(MAX(scores.score), 0) AS highscore
       FROM gamemodes
-      LEFT JOIN (
-          SELECT gamemode_id, MAX(score) AS score, DATE_FORMAT(scores.created_at, '%Y-%m-%d %H:%i:%s') AS created_at FROM scores
-          WHERE user_id = ? GROUP BY gamemode_id, created_at
-      ) scores ON gamemodes.id = scores.gamemode_id ORDER BY score DESC`;
+      LEFT JOIN scores ON gamemodes.id = scores.gamemode_id
+      WHERE scores.user_id = 2
+      GROUP BY gamemodes.id, gamemodes.name
+      ORDER BY highscore DESC`;
+
       const [ results ] = await connection.execute(query, [targetPlayerId]);
       req.playerHighscores = results;
       next();
